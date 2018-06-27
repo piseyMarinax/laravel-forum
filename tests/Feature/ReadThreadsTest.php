@@ -1,10 +1,11 @@
-<?php
-
-namespace Tests\Feature;
+    <?php
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @property mixed thread
+ */
 class ThreadsTest extends TestCase
 {
     use RefreshDatabase;
@@ -25,7 +26,7 @@ class ThreadsTest extends TestCase
     /** @test */
     public function a_user_can_view_a_threads()
     {
-        $response = $this->get('/threads/'.$this->thread->id);
+        $response = $this->get( $this->thread->path());
         $response->assertSee($this->thread->title);
     }
 
@@ -36,7 +37,7 @@ class ThreadsTest extends TestCase
         //And that thread include replies
         $reply = factory('App\Reply')->create(['thread_id' => $this->thread->id]);
         //We visite a thread
-         $response = $this->get('/threads/'.$this->thread->id);
+         $response = $this->get($this->thread->path());
         //Then we should see the replies
         $response->assertSee($reply->body);
 
