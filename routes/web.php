@@ -18,9 +18,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/threads', 'ThreadsController@index')->name('threads');
-Route::post('/threads', 'ThreadsController@store')->name('threads');
-Route::get('/threads/{thread}', 'ThreadsController@show')->name('threads.show');
+// Route::get('/threads', 'ThreadsController@index')->name('threads');
+// Route::get('/threads/create', 'ThreadsController@create')->name('threads.create');
+// Route::post('/threads', 'ThreadsController@store')->name('threads');
+// Route::get('/threads/{thread}', 'ThreadsController@show')->name('threads.show');
+
+Route::resource('threads','ThreadsController');
 
 // Route::post('/threads/{thread}/replies', 'ThreadsController@addReply')->name('threads.addReply');
 Route::post('/threads/{thread}/replies', 'RepliesController@store')->name('reply.store');

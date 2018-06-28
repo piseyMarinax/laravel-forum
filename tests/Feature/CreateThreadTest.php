@@ -19,6 +19,15 @@ class CreateThreadTest extends TestCase
         $this->post('/threads',$thread->toArray());
     }
 
+     /** @test */
+    public function test_guest_cannot_see_the_create_thread_page()
+    {
+        // $this->expectException('Illuminate\Auth\AuthenticationException');
+        $this->withExceptionHanding()
+            ->get('/threads/create')
+            ->assertRedirect('/login');
+    }
+
     /** @test */
     public function test_an_authenticated_user_can_create_a_new_forum_thread()
     {
