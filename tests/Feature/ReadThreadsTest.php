@@ -13,7 +13,7 @@ class ThreadsTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->thread = factory('App\Thread')->create();
+        $this->thread = create('App\Thread');
     }
 
     /** @test */
@@ -35,7 +35,7 @@ class ThreadsTest extends TestCase
     {
         //Give we have a thread
         //And that thread include replies
-        $reply = factory('App\Reply')->create(['thread_id' => $this->thread->id]);
+        $reply = create('App\Reply',['thread_id' => $this->thread->id]);
         //We visite a thread
          $response = $this->get($this->thread->path());
         //Then we should see the replies

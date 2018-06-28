@@ -8,13 +8,14 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class CreateThreadTest extends TestCase
 {
     use RefreshDatabase;
-/** @test */
-    public function guest_may_not_create_a_thread()
+    
+    /** @test */
+    public function test_guest_may_not_create_a_thread()
     {
         $this->expectException('Illuminate\Auth\AuthenticationException');
 
         // Then we hit the endpoit to create a new thread
-        $thread = factory('App\Thread')->create();
+        $thread = make('App\Thread');
         $this->post('/threads',$thread->toArray());
     }
 
@@ -22,10 +23,10 @@ class CreateThreadTest extends TestCase
     public function test_an_authenticated_user_can_create_a_new_forum_thread()
     {
         // Give we have a signed in user
-        $this->actingAs(factory('App\User')->create());
+        $this->actingAs(create('App\User'));
 
         // Then we hit the endpoit to create a new thread
-        $thread = factory('App\Thread')->create();
+        $thread = create('App\Thread');
         $this->post('/threads',$thread->toArray());
 
         // Then, we vistion the thread page.

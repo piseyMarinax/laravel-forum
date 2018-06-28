@@ -13,10 +13,10 @@ class ParticipateInForumTest extends TestCase
     {
         $this->expectException('Illuminate\Auth\AuthenticationException');
         // And an existing thread
-        $thread = factory('App\Thread')->create();
+        $thread = create('App\Thread');
 
         // then user add a reply to the thread
-        $reply = factory('App\Reply')->create();
+        $reply = create('App\Reply');
         $this->post('/threads/'. $thread->id.'/replies',$reply->toArray());
 
     }
@@ -27,13 +27,13 @@ class ParticipateInForumTest extends TestCase
         // Given we have a authenticate user
  
         //    $user = factory('App\User')->create();
-        $this->be($user = factory('App\User')->create());
+        $this->be($user = create('App\User'));
 
         // And an existing thread
-        $thread = factory('App\Thread')->create();
+        $thread = create('App\Thread');
 
         // then user add a reply to the thread
-        $reply = factory('App\Reply')->make();
+        $reply = make('App\Reply');
         $this->post('/threads/'. $thread->id.'/replies',$reply->toArray());
 
         // Then their reply should visible on the page.
