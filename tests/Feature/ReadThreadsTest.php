@@ -22,6 +22,12 @@ class ThreadsTest extends TestCase
         $response = $this->get('/threads');
         $response->assertSee($this->thread->title);
     }
+    /** @test */
+    public function test_a_thread_can_make_string_path()
+    {
+       $thread = create('App\Thread');
+       $this->assertEquals("/threads/{$thread->channel->slug}/{$thread->id}",$thread->path());
+    }
 
     /** @test */
     public function a_user_can_view_a_threads()
@@ -41,5 +47,12 @@ class ThreadsTest extends TestCase
         //Then we should see the replies
         $response->assertSee($reply->body);
 
+    }
+
+    /** @test */
+    public function test_a_thread_belong_to_a_chanel()
+    {
+        $thread = create('App\Thread');
+        $this->assertInstanceOf('App\Channel', $thread->channel);
     }
 }

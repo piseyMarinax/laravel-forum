@@ -17,7 +17,7 @@ class ParticipateInForumTest extends TestCase
 
         // then user add a reply to the thread
         $reply = create('App\Reply');
-        $this->post('/threads/'. $thread->id.'/replies',$reply->toArray());
+        $this->post('/threads/some-channel/'. $thread->id.'/replies',$reply->toArray());
 
     }
 
@@ -33,8 +33,8 @@ class ParticipateInForumTest extends TestCase
         $thread = create('App\Thread');
 
         // then user add a reply to the thread
-        $reply = make('App\Reply');
-        $this->post('/threads/'. $thread->id.'/replies',$reply->toArray());
+        $reply = create('App\Reply');
+        $this->post("/threads/some-channel/". $thread->id.'/replies',$reply->toArray());
 
         // Then their reply should visible on the page.
         $response = $this->get($thread->path());
