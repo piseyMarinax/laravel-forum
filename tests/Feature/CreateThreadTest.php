@@ -13,13 +13,11 @@ class CreateThreadTest extends TestCase
     public function test_guest_may_not_create_a_thread()
     {
          $this->withExceptionHanding()
-            ->post('/threads')
+            ->get('/threads/create')
             ->assertRedirect('/login');
 
-
-            $this->get('/threads/create')
+            $this->post('/threads')
             ->assertRedirect('/login');
-        
     }
 
      /** @test */
@@ -40,14 +38,48 @@ class CreateThreadTest extends TestCase
         $this->actingAs(create('App\User'));
 
         // Then we hit the endpoit to create a new thread
-        $thread = create('App\Thread');
-        $this->post('/threads',$thread->toArray());
+        $thread = make('App\Thread');
+        $response = $this->post('/threads',$thread->toArray());
 
         // Then, we vistion the thread page.
-        $response = $this->get($thread->path()) ;
+        $response = $this->get($response->headers->get('Location')) ;
         
         $response->assertSee($thread->title);
         $response->assertSee($thread->body);
 
+    }
+
+    function test_a_thread_require_a_title()
+    {
+        $this->publicThread(['title' => null])
+        ->assertSessionHasErrors('title');
+      
+    }
+
+    function test_a_thread_require_a_body()
+    {
+        $this->publicThread(['body' => null])
+        ->assertSessionHasErrors('body');
+      
+    }
+
+    function test_a_thread_require_a_channel()
+    {
+        factory('App\Channel',2)->create();
+
+        $this->publicThread(['channel_id' => null])
+        ->assertSessionHasErrors('channel_id');
+
+         $this->publicThread(['channel_id' => 999])
+        ->assertSessionHasErrors('channel_id');
+      
+    }
+
+    function publicThread($override)
+    {
+        $this->withExceptionHanding()->singIn();
+        $thread = make('App\Thread',$override);
+       return $this->post('/threads',$thread->toArray());
+        
     }
 }
