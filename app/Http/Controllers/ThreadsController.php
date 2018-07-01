@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Thread;
+use App\Channel;
+use App\Http\Requests\ThreadsRequest;
 use Illuminate\Http\Request;
 
 class ThreadsController extends Controller
@@ -31,7 +33,9 @@ class ThreadsController extends Controller
      */
     public function create()
     {
-        return view('threads.create');
+        $channels = Channel::all();
+
+        return view('threads.create',compact('channels'));  
     }
 
     /**
@@ -40,15 +44,8 @@ class ThreadsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ThreadsRequest $request)
     {
-
-        $this->validate($request,[
-            'title' => 'required',
-            'body' => 'required',
-            'channel_id' => 'required|exists:channels,id'
-        ]);
-
         $thread = Thread::create([
             'user_id' => auth()->id(),
             'channel_id'     => $request->channel_id,

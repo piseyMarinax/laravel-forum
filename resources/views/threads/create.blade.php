@@ -14,6 +14,20 @@
                             <input type="text" class="form-control" name="title" id="title">
                         </div>
                         <div class="form-group">
+                            <label for="title">Channel</label>
+                            <select class="form-control" name="channel_id" id="channel_id">
+                                <?php 
+                                    echo $channels;
+
+                                ?>
+                                @foreach($channels as $channel)
+                                    <option value="{{ $channel->id }}">
+                                        {{ $channel->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="body">Body</label>
                             <textarea class="form-control" name="body" id="body" rows="5"></textarea>
                         </div>
