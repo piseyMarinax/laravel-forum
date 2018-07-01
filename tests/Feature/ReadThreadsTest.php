@@ -56,7 +56,7 @@ class ThreadsTest extends TestCase
         $this->assertInstanceOf('App\Channel', $thread->channel);
     }
 
-     /** @test */
+    /** @test */
     public function test_a_user_can_filter_threads_according_to_a_channel()
     {
         $channel = create('App\Channel');
@@ -66,5 +66,19 @@ class ThreadsTest extends TestCase
         $this->get('/threads/'.$channel->slug)
             ->assertSee($threadInChannel->title)
             ->assertDontSee($threadNotInChannel->title);
+    }
+
+    /** @test */
+    public function test_a_user_can_filter_the_thread_by_name()
+    {
+        $this->singIn(create('App\User',['name' => 'kaka']));
+
+        $threadByMe    = create('App\Thread',['user_id' => auth()->id()]);
+        $threadNotByMe = create('App\Thread');
+
+        $this->get('/threads?by=kaka')
+            ->assertSee($threadByMe->title)
+            ->assertDontSee($threadNotByMe->title);
+
     }
 }
