@@ -37,16 +37,15 @@
                        <li class="nav-item">
                             <a class="nav-link" href="/threads/">All Thread</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/threads/create">Create thread</a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">Channels </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 @foreach(App\Channel::all() as $channel)
-
-                            <a class="dropdown-item" href="{{$channel->path()}}">{{ $channel->slug }}</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
+                                    <a class="dropdown-item" href="{{$channel->path()}}">{{ $channel->slug }}</a>
                                 @endforeach
                             </div>
                         </li>

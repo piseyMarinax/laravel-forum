@@ -33,9 +33,9 @@ class ThreadsRequest extends FormRequest
      public function messages()
     {
         return [
-            'title.required'            => 'The Body is required',
+            'title.required'            => 'The title is required',
             'body.required'             => 'The Body is required',
-            'channel_id.required'       => 'The Body is required'
+            'channel_id.required'       => 'The channel is required'
         ];
     }
 }

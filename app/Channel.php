@@ -20,6 +20,4 @@ class Channel extends Model
     {
         return "/threads/{$this->slug}";
     }
-
-
 }
