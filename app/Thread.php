@@ -22,19 +22,42 @@ class Thread extends Model
     {
         return $this->belongsTo(User::class,'user_id');
     }
-     public function creatorName()
+
+    /**
+     * @return mixed
+     */
+    public function creatorName()
     {
         return $this->creator->name;
     }
 
-     public function channel()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function channel()
     {
         return $this->belongsTo(Channel::class);
     }
 
+    /**
+     * @param $reply
+     */
     public function addReply($reply)
     {
         $this->replies()->create($reply);
     }
+
+
+    /**
+     * @param $query
+     * @param $filters
+     * @return mixed
+     */
+    public function scopeFilter($query, $filters)
+    {
+        return $filters->apply($query);
+    }
+
+
 
 }

@@ -1,6 +1,7 @@
     <?php
 
 use Tests\TestCase;
+use App\Filters\ThreadFilters;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
@@ -17,7 +18,7 @@ class ThreadsTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_view_all_threads()
+    public function test_a_user_can_view_all_threads()
     {
         $response = $this->get('/threads');
         $response->assertSee($this->thread->title);
