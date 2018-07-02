@@ -12,6 +12,7 @@ use PhpParser\Node\Param;
 class ThreadsController extends Controller
 {
 
+
     public function __construct()
     {
         $this->middleware('auth')->except(['index','show']);
@@ -70,7 +71,15 @@ class ThreadsController extends Controller
      */
     public function show($channelId,Thread $thread)
     {
-        return view('threads.show',compact('thread'));  
+//        return $thread;
+//       return $thread->load('replies');
+//       return Thread::withCount('replies')->find(53);
+//       return $thread->replies()->count();
+
+        return view('threads.show',[
+            'thread' => $thread,
+            'replies' => $thread->replies()->paginate($thread->perPage)
+        ]);
     }
 
     /**
@@ -123,4 +132,7 @@ class ThreadsController extends Controller
         $threads = $threads->get();
         return $threads;
     }
+
+
+
 }

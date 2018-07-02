@@ -6,18 +6,20 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Forum Threads</div>
-                <div class="card-body">
                     @foreach($threads as $thread)
-                        <article>
-                            <h4>
-                                <a href="{{ $thread->path() }}">{{ $thread->title }}</a>
-                            </h4>
-                            <div class="card-body">{{ $thread->title }}</div>
-                        </article>
-
-                        <hr>
-                    @endforeach                
-                </div>
+                        <div class="card-body">
+                            <article>
+                                <div class="card panel-default">
+                                    <div class="card-header">
+                                        <a href="{{ $thread->path() }}">{{ $thread->title}}</a>
+                                    </div>
+                                    <div class="card-body">
+                                        {{ $thread->body }}
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    @endforeach
             </div>
         </div>
     </div>
