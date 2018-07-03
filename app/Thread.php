@@ -66,7 +66,7 @@ class Thread extends Model
      */
     public function scopeFilter($query, $filters)
     {
-        return $filters->apply($query);
+            return $filters->apply($query);
     }
 
 }

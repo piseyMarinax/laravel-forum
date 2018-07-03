@@ -11,7 +11,18 @@
                             <article>
                                 <div class="card panel-default">
                                     <div class="card-header">
-                                        <a href="{{ $thread->path() }}">{{ $thread->title}}</a>
+                                        <div class="level">
+                                            <h4 class="flex">
+                                                <a href="{{ $thread->path() }}">{{ $thread->title}}</a>
+                                            </h4>
+                                            <strong>
+                                                <a href="{{ $thread->path() }}">
+                                                    {{ $thread->replies_count }} {{ str_plural('reply', $thread->replies_count) }}
+                                                </a>
+                                            </strong>
+
+                                        </div>
+
                                     </div>
                                     <div class="card-body">
                                         {{ $thread->body }}
