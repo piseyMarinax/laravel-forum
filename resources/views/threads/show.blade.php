@@ -13,6 +13,7 @@
                 </div>
             </div>
             <br>
+            
             <div class="card panel-default">
                 @foreach($replies as $reply)
                     @include('threads.reply')
