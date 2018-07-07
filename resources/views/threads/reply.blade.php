@@ -5,9 +5,10 @@
                 {{ $reply->owner->name }}
             </a>  said {{ $reply->created_at->diffForHumans()}}...
         </h4>
+
         <form method="POST" action="/replies/{{ $reply->id}}/favorites">
             {{ csrf_field()}}
-        <button type="submit" class="btn btn-danger" {{ $reply->isFavorited() ? 'disabled' : ''}}>
+        <button type="submit" class="btn btn-info" {{ $reply->isFavorited() ? 'disabled' : ''}}>
             {{ $reply->favorites_count }} {{ str_plural('Favorite',$reply->favorites_count) }} </button>
          </form>
      </div>

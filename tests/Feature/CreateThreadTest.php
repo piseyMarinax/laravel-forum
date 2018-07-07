@@ -49,6 +49,7 @@ class CreateThreadTest extends TestCase
 
     }
 
+    /** @test */
     function test_a_thread_require_a_title()
     {
         $this->publicThread(['title' => null])
@@ -56,6 +57,7 @@ class CreateThreadTest extends TestCase
       
     }
 
+    /** @test */
     function test_a_thread_require_a_body()
     {
         $this->publicThread(['body' => null])
@@ -63,6 +65,7 @@ class CreateThreadTest extends TestCase
       
     }
 
+    /** @test */
     function test_a_thread_require_a_channel()
     {
         factory('App\Channel',2)->create();
@@ -74,6 +77,47 @@ class CreateThreadTest extends TestCase
         ->assertSessionHasErrors('channel_id');
       
     }
+
+    /** @test */
+    function guest_can_not_delete_the_thread()
+    {
+
+        $this->withExceptionHanding();
+
+        $thread = create('App\Thread');
+
+        $response = $this->delete($thread->path());
+
+        $response->assertRedirect('/login');
+
+
+    }
+
+    /** @test */
+    function thread_maybe_delete_who_will_have_permission()
+    {
+
+    }
+
+
+    /** @test */
+    function test_a_thread_can_be_delete()
+    {
+        $this->singIn();
+
+
+        $thread = create('App\Thread');
+        $reply = create('App\Reply',['thread_id' => $thread->id]);
+
+        $response = $this->json('DELETE',$thread->path());
+
+        $response->assertStatus(204);
+
+        $this->assertDatabaseMissing('threads',['id' => $thread->id]);
+        $this->assertDatabaseMissing('replies',['id' => $reply->id]);
+
+    }
+
 
     function publicThread($override)
     {

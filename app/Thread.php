@@ -2,6 +2,7 @@
 
 namespace App;
 
+use function foo\func;
 use Illuminate\Database\Eloquent\Model;
 
 class Thread extends Model
@@ -22,6 +23,10 @@ class Thread extends Model
         // static::addGlobalScope('creator', function ($builder) {
         //     $builder->with('creator');
         // });
+
+        static::deleting(function($thread){
+            $thread->replies()->delete();
+        });
     }
 
     public function path()
