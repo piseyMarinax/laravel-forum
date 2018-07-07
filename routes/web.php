@@ -32,3 +32,10 @@ Route::get('/threads/{channel}', 'ThreadsController@index')->name('threads.chann
 Route::post('/threads/{channel}/{thread}/replies', 'RepliesController@store')->name('reply.store');
 
 Route::post('replies/{reply}/favorites','FavoritesController@store');
+Route::get('replies/{reply}/favorites', function(){
+    return redirect('/home');
+});
+
+
+
+Route::get('/profiles/{user}', 'ProfilesController@show')->name('profile');
