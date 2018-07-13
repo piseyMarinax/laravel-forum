@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Thread extends Model
 {
+    use RecodesActivity;
+
     public $perPage = 20;
 
     protected $guarded = [];
