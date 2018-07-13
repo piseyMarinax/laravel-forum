@@ -10,13 +10,12 @@
                 </div>
                 @foreach($threads as $thread)
                     <div class="card panel-default">
-
                         <div class="card-header">
                             <div class="level">
                         <span class="flex">
                             <a href="{{route('profile',$thread->creatorName()) }}">{{ $thread->creatorName() }}</a> Posts : {{ $thread->title}}
                         </span>
-                                <span>
+                            <span>
                             {{ $thread->created_at->diffForHumans()}}
                         </span>
                             </div>
@@ -30,6 +29,5 @@
                 {{$threads->links()}}
             </div>
         </div>
-
     </div>
 @endsection

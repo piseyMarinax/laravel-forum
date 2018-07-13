@@ -115,12 +115,14 @@ class ThreadsController extends Controller
      */
     public function destroy($channel,Thread $thread)
     {
+        // check permissino by create file policy
+        $this->authorize('update',$thread);
 
         $thread->delete();
 
         if(\request()->wantsJson())
         {
-            return response([],204);
+            return response(['status' => 'successfull delete'],204);
         }
         return redirect('/threads');
     }

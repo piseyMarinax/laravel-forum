@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Forum Threads</div>
-                    @foreach($threads as $thread)
+                    @forelse($threads as $thread)
                         <div class="card-body">
                             <article>
                                 <div class="card panel-default">
@@ -30,7 +30,13 @@
                                 </div>
                             </article>
                         </div>
-                    @endforeach
+                    @empty
+                        <div class="card-body">
+                            <article>
+                            <p>There are no recode</p>
+                            </article>
+                        </div>
+                    @endforelse
             </div>
         </div>
     </div>
