@@ -26,14 +26,15 @@
                 
         }
         /** @test */
-        public function display_all_threads_that_relate_to_user()
+        public function profiles_display_all_threads_that_relate_to_user()
         {
-            $profileUser = create('App\User');
-            $thread = create('App\Thread',['user_id' => $profileUser->id]);
-            $this->get('/profiles/'.$profileUser->name)
-                ->assertSee($profileUser->name);
-//                ->assertSee($thread->title)
-//                ->assertSee($thread->body);
+            $this->singIn();
+
+            $thread = create('App\Thread',['user_id' => auth()->id()]);
+            $this->get('/profiles/'.auth()->user()->name)
+
+                ->assertSee($thread->title)
+                ->assertSee($thread->body);
 
         }
 
