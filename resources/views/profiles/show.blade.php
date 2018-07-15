@@ -8,25 +8,22 @@
                 <div class="page-header">
                     <h1> {{$profileUser->name}} <small> Sine {{ $profileUser->created_at->diffForHumans() }}</small> </h1>
                 </div>
-                @foreach($threads as $thread)
-                    <div class="card panel-default">
-                        <div class="card-header">
-                            <div class="level">
-                        <span class="flex">
-                            <a href="{{route('profile',$thread->creatorName()) }}">{{ $thread->creatorName() }}</a> Posts : {{ $thread->title}}
-                        </span>
-                            <span>
-                            {{ $thread->created_at->diffForHumans()}}
-                        </span>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            {{ $thread->body }}
-                        </div>
-                    </div>
+                @foreach($activities as $date => $activity)
                     <br>
+                    <div class="page-header">
+                          <h3>
+                              {{$date}}
+                          </h3>
+
+                        <hr>
+
+                    </div>
+                    @foreach($activity as $record)
+                        @include("profiles.activities.$record->type",['activity' => $record])
+                    @endforeach
+
                 @endforeach
-                {{$threads->links()}}
+                {{--{{$threads->links()}}--}}
             </div>
         </div>
     </div>

@@ -2,7 +2,6 @@
 
 namespace App;
 
-use function foo\func;
 use Illuminate\Database\Eloquent\Model;
 
 class Thread extends Model
@@ -82,5 +81,7 @@ class Thread extends Model
     {
         return $filters->apply($query);
     }
+
+
 
 }

@@ -26,7 +26,7 @@ trait RecodesActivity
     protected static function getRecodeEvent()
     {
         // fire event
-        return ['created','deleted'];
+        return ['created'];
     }
 
     protected function recodeActivity($event)
