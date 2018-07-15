@@ -21,6 +21,10 @@ trait RecodesActivity
                 $model->recodeActivity($event);
             });
         }
+
+        static::deleting(function($model){
+            $model->activity()->delete();
+        });
     }
 
     protected static function getRecodeEvent()
