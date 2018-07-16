@@ -26,12 +26,10 @@
                 </div>
             </div>
             <br>
-            
-            <div class="card panel-default">
-                @foreach($replies as $reply)
-                    @include('threads.reply')
-                @endforeach
-            </div>
+
+            @foreach($replies as $reply)
+                @include('threads.reply')
+            @endforeach
 
             {{ $replies->links() }}
             <div>
@@ -56,7 +54,7 @@
             <div class="card panel-default">
                 <div class="card-body">
                     <p>This is thread was publish <b>{{ $thread->created_at->diffForHumans() }}</b> </p>
-                    created by <a href="#">{{ $thread->creatorName() }}</a>
+                    created by <a href="{{ route('profile',$thread->creatorName()) }}">{{ $thread->creatorName() }}</a>
                     and currently has {{ $thread->replies_count }}
                     {{ str_plural('comment', $thread->replies_count) }}
                 </div>
