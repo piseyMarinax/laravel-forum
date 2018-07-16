@@ -63,7 +63,8 @@ class ThreadsController extends Controller
             'body'     => $request->body
         ]);
 
-        return redirect($thread->path());
+        return redirect($thread->path())
+            ->with('flash','Your thread has been created');
     }
 
     /**
@@ -124,7 +125,7 @@ class ThreadsController extends Controller
         {
             return response(['status' => 'successfull delete'],204);
         }
-        return redirect('/threads');
+        return redirect('/threads')->with('flash','Your thread has been deleted');
     }
 
     /**
