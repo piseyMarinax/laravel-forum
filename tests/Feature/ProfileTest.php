@@ -20,10 +20,10 @@
         /** @test */
         public function a_user_has_a_profile()
         {
-            $profileUser = create('App\User');
-            $this->get('/profiles/'.$profileUser->name)
-                ->assertSee($profileUser->name);
-                
+//            $profileUser = create('App\User');
+            $profileUser = $this->singIn();
+            $this->get('/profiles/'.auth()->user()->name)
+                ->assertSee(auth()->user()->name);
         }
         /** @test */
         public function profiles_display_all_threads_that_relate_to_user()
@@ -35,7 +35,6 @@
 
                 ->assertSee($thread->title)
                 ->assertSee($thread->body);
-
         }
 
     }

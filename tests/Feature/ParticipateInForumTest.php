@@ -22,7 +22,7 @@ class ParticipateInForumTest extends TestCase
     }
 
     /** @test */
-    public function test_an_authenticated_user_may_participate_in_forum_thread()
+    public function an_authenticated_user_may_participate_in_forum_thread()
     {
         // Given we have a authenticate user
  
@@ -43,7 +43,7 @@ class ParticipateInForumTest extends TestCase
 
     }
 
-     function test_a_reply_require_a_body()
+     function a_reply_require_a_body()
     {
         $this->withExceptionHanding()->singIn();
 
@@ -56,4 +56,34 @@ class ParticipateInForumTest extends TestCase
         $this->post($thread->path().'/replies',$reply->toArray())
             ->assertSessionHasErrors('body');
     }
+
+    /** @test */
+    function unauthorized_user_connot_delete_replies()
+    {
+        $this->withExceptionHanding();
+
+        $reply = create('App\Reply');
+
+        $this->delete("/replies/{$reply->id}")
+            ->assertRedirect('login');
+
+        $this->singIn()
+            ->delete("/replies/{$reply->id}")
+            ->assertStatus(403);
+    }
+
+    /** @test */
+    function authorized_users_can_delete_reply()
+    {
+        $this->singIn();
+
+        $reply = create('App\Reply',['user_id' => auth()->id()]);
+
+        $this->delete("/replies/{$reply->id}")
+            ->assertStatus(302);
+
+        $this->assertDatabaseMissing('replies',['id' => $reply->id]);
+    }
+
+
 }
